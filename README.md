@@ -1,3 +1,4 @@
+![Senza titolo](https://user-images.githubusercontent.com/116734507/222273644-e3a2164a-9358-4160-bfe7-5d95447e267f.png)
 
 # Dr Buddy Medical Studio Management System
 
