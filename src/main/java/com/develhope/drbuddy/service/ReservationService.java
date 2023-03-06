@@ -6,6 +6,7 @@ import com.develhope.drbuddy.entities.Reservation;
 import com.develhope.drbuddy.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,12 @@ public class ReservationService {
     }
 
     public Optional<Reservation> getReservationById(int reservationId){
-        return Optional.of(reservationRepository.getById(reservationId));
+        Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
+        if (optionalReservation.isPresent()) {
+            return optionalReservation;
+        } else {
+            throw new EntityNotFoundException("Reservation with id " + reservationId + " not found");
+        }
     }
 
     public List<Reservation> getReservationsByDoctor(Doctor doctor_id) {
@@ -34,5 +40,4 @@ public class ReservationService {
     public List<Reservation> getReservationsByPatient(Patient patient_id) {
         return reservationRepository.findBypatient(patient_id);
     }
-
 }

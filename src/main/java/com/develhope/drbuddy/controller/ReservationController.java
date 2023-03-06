@@ -1,14 +1,11 @@
 package com.develhope.drbuddy.controller;
 
-
 import com.develhope.drbuddy.entities.Doctor;
 import com.develhope.drbuddy.entities.Patient;
 import com.develhope.drbuddy.entities.Reservation;
 import com.develhope.drbuddy.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,12 +28,7 @@ public class ReservationController {
 
     @GetMapping("/{reservationId}")
     public Optional<Reservation> getReservationById(@PathVariable int reservationId){
-        Optional<Reservation> optionalReservation = reservationService.getReservationById(reservationId);
-        if (optionalReservation.isPresent()) {
-            return optionalReservation;
-        } else {
-            throw new EntityNotFoundException("Reservation with id " + reservationId + " not found");
-        }
+        return reservationService.getReservationById(reservationId);
     }
 
     @GetMapping("/patient/{patientId}")
@@ -45,7 +37,6 @@ public class ReservationController {
         newPatient.setId(patientId);
         return reservationService.getReservationsByPatient(newPatient);
     }
-
 
     @GetMapping("/doctor/{doctorId}")
     public List<Reservation> getReservationsByDoctor(@PathVariable int doctorId) {

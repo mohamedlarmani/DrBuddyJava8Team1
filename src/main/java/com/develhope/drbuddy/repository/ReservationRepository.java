@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ReservationRepository extends JpaRepository <Reservation, Integer> {
-    List <Reservation> findByDoctor (Doctor doctor_id);
-    List<Reservation> findByPatient (Patient patient_id);
+    List<Reservation> findBydoctor (Doctor doctor_id);
+    List<Reservation> findBypatient (Patient patient_id);
 }
