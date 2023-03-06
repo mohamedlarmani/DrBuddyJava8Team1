@@ -1,14 +1,15 @@
 package com.develhope.drbuddy.entities;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import org.springframework.data.annotation.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reservation")
 public class Reservation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idReservation", nullable = false)
