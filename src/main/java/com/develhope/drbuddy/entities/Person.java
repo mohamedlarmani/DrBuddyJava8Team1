@@ -1,11 +1,9 @@
 package com.develhope.drbuddy.entities;
 
+import com.develhope.drbuddy.enums.RecordStatus;
 import com.develhope.drbuddy.utilities.Auditable;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -32,12 +30,18 @@ public abstract class Person extends Auditable {
     @Column(name = "email", nullable = false, length = 45)
     private String email;
 
-    public Person(Integer id, String firstname, String lastname, String telephoneNumber, String email) {
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    @Column(name = "record_status", nullable = false, length = 1)
+    private RecordStatus recordStatus;
+
+    public Person(Integer id, String firstname, String lastname, String telephoneNumber, String email, RecordStatus recordStatus) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.telephoneNumber = telephoneNumber;
         this.email = email;
+        this.recordStatus = recordStatus;
     }
 
     public Person(){};
@@ -80,5 +84,13 @@ public abstract class Person extends Auditable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public RecordStatus getRecordStatus() {
+        return recordStatus;
+    }
+
+    public void setRecordStatus(RecordStatus recordStatus) {
+        this.recordStatus = recordStatus;
     }
 }
