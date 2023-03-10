@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/doctorbuddy
     username: root
-    password: password
+    password: Larmani97
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database: mysql
@@ -11,3 +11,5 @@ spring:
     show_sql: true
     hibernate:
       ddl-auto: validate
+server:
+  port: 5050
