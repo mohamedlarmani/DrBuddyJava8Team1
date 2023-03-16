@@ -6,48 +6,31 @@ import com.develhope.drbuddy.enums.RecordStatus;
 
 public class DoctorResponseDto {
 
-    private Integer id;
     private String firstname;
     private String lastname;
     private String telephoneNumber;
     private String email;
     private String city;
     private String address;
-    private Secretary secretaryId;
-    private RecordStatus recordStatus;
 
-    public DoctorResponseDto(Integer id, String firstname, String lastname, String telephoneNumber, String email, String city, String address, Secretary secretaryId, RecordStatus recordStatus) {
-        this.id = id;
+    public DoctorResponseDto(String firstname, String lastname, String telephoneNumber, String email, String city, String address) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.telephoneNumber = telephoneNumber;
         this.email = email;
         this.city = city;
         this.address = address;
-        this.secretaryId = secretaryId;
-        this.recordStatus = recordStatus;
     }
 
     public static DoctorResponseDto fromDoctor(Doctor doctor) {
         return new DoctorResponseDto(
-                doctor.getId(),
                 doctor.getFirstname(),
                 doctor.getLastname(),
                 doctor.getTelephoneNumber(),
                 doctor.getEmail(),
                 doctor.getCity(),
-                doctor.getAddress(),
-                doctor.getSecretary(),
-                doctor.getRecordStatus()
+                doctor.getAddress()
         );
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getFirstname() {
@@ -82,14 +65,6 @@ public class DoctorResponseDto {
         this.email = email;
     }
 
-    public RecordStatus getRecordStatus() {
-        return recordStatus;
-    }
-
-    public void setRecordStatus(RecordStatus recordStatus) {
-        this.recordStatus = recordStatus;
-    }
-
     public String getCity() {
         return city;
     }
@@ -106,12 +81,5 @@ public class DoctorResponseDto {
         this.address = address;
     }
 
-    public Secretary getSecretaryId() {
-        return secretaryId;
-    }
-
-    public void setSecretaryId(Secretary secretaryId) {
-        this.secretaryId = secretaryId;
-    }
 }
 

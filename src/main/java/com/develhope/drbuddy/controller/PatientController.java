@@ -13,12 +13,12 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    @PostMapping
+    @PostMapping ("/postPatient")
     public Patient createPatient(@RequestBody Patient patient) {
         return patientService.savePatient(patient);
     }
 
-    @GetMapping("/{patientId}")
+    @GetMapping("/getPatient/{patientById}")
     public Optional<Patient> getPatientById(@PathVariable int patientId){
         return patientService.getPatientById(patientId);
     }

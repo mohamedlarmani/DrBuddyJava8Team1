@@ -13,12 +13,12 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-    @PostMapping
+    @PostMapping("/postDoctor")
     public Doctor createDoctor(@RequestBody Doctor doctor) {
         return doctorService.saveDoctor(doctor);
     }
 
-    @GetMapping("/{doctorId}")
+    @GetMapping("/getDoctor/{doctorById}")
     public Optional<Doctor> getDoctorById(@PathVariable int doctorId){
         return doctorService.getDoctorById(doctorId);
     }

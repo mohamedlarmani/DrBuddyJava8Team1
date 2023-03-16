@@ -30,7 +30,7 @@ public class DoctorService {
         if (optionalDoctor.isPresent() && optionalDoctor.get().getRecordStatus() == RecordStatus.A) {
             return optionalDoctor;
         } else {
-            throw new EntityNotFoundException("Doctor with id " + doctorId + " not found");
+            throw new EntityNotFoundException("Doctor with id " + doctorId + " not found ");
         }
     }
 }

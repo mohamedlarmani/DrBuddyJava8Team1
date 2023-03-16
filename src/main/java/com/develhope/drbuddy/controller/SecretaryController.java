@@ -19,14 +19,15 @@ public class SecretaryController {
     @Autowired
     private SecretaryService secretaryService;
 
-    @PostMapping
+    @PostMapping("/postSecretary")
     public Secretary SecretaryRepository(@RequestBody Secretary secretary) {
         return secretaryService.saveSecretary(secretary);
     }
 
 
-    @GetMapping("/{secretaryId}")
+    @GetMapping("/getSecretary/{secretaryById}")
     public Optional<Secretary> getSecretaryById(@PathVariable int secretaryId) {
         return secretaryService.getSecretaryById(secretaryId);
     }
+
 }
