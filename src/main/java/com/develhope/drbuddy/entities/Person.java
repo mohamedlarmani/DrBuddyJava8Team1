@@ -9,17 +9,22 @@ import javax.validation.constraints.Size;
 
 @MappedSuperclass
 public abstract class Person extends Auditable {
+
+    @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (nullable = false)
     private Integer id;
+
     @Size (max = 45)
     @NotNull
     @Column(name = "firstname", nullable = false, length = 45)
     private String firstname;
+
     @Size(max = 45)
     @NotNull
     @Column(name = "lastname", nullable = false, length = 45)
     private String lastname;
+
     @Size(max = 15)
     @NotNull
     @Column(name = "telephone_number", nullable = false, length = 15)

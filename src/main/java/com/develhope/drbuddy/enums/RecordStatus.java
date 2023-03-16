@@ -2,8 +2,8 @@ package com.develhope.drbuddy.enums;
 
 public enum RecordStatus {
 
-    A ("This reservation is active"),
-    D ("This reservation is deleted");
+    A ("This record is active"),
+    D ("This record is deleted");
 
     private String descrizione;
 
