@@ -22,4 +22,5 @@ public class DoctorController {
     public Optional<Doctor> getDoctorById(@PathVariable int doctorId){
         return doctorService.getDoctorById(doctorId);
     }
+
 }
