@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/doctorbuddy
-    username:
-    password:
+    username: root
+    password: 26199Mrg.
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database: mysql
@@ -11,5 +11,16 @@ spring:
     show_sql: true
     hibernate:
       ddl-auto: validate
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: studiomedico.gruppo1.java8@gmail.com
+    password: csrenoniyugittmc
+    properties:
+      mail:
+        smtp:
+          auth: None
+          starttls:
+            enable: true
 server:
   port: 5050

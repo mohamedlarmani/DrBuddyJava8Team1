@@ -1,8 +1,6 @@
 package com.develhope.drbuddy.entities.dto;
 
 import com.develhope.drbuddy.entities.Doctor;
-import com.develhope.drbuddy.entities.Secretary;
-import com.develhope.drbuddy.enums.RecordStatus;
 
 public class DoctorResponseDto {
 
