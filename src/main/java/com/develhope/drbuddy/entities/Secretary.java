@@ -1,4 +1,14 @@
 package com.develhope.drbuddy.entities;
 
-public class Secretary {
+
+import javax.persistence.*;
+
+
+
+@Entity
+@Table(name = "secretary")
+public class Secretary extends Person {
+    public Secretary(){};
+
+
 }
