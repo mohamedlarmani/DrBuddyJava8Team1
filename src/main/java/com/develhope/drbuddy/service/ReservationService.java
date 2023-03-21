@@ -29,7 +29,7 @@ public class ReservationService {
     }
 
 
-    public ReservationResponseDto postImmobile(ReservationRequestDto request) {
+    public ReservationResponseDto postReservation(ReservationRequestDto request) {
         return reservationEntityToResponse(reservationRepository.save(reservationRequestToEntity(request)));
     }
 

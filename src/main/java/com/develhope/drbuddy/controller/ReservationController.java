@@ -3,6 +3,8 @@ package com.develhope.drbuddy.controller;
 import com.develhope.drbuddy.entities.Doctor;
 import com.develhope.drbuddy.entities.Patient;
 import com.develhope.drbuddy.entities.Reservation;
+import com.develhope.drbuddy.entities.dto.ReservationRequestDto;
+import com.develhope.drbuddy.entities.dto.ReservationResponseDto;
 import com.develhope.drbuddy.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +19,13 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @PostMapping("/postReservation")
-    public Reservation createReservation(@RequestBody Reservation reservation) {
-        return reservationService.saveReservation(reservation);
+    public ReservationResponseDto createReservation(@RequestBody ReservationRequestDto request) {
+        return reservationService.postReservation(request);
     }
 
     @GetMapping("getReservation/{reservationById}")
-    public Optional<Reservation> getReservationById(@PathVariable int reservationId){
-        return reservationService.getReservationById(reservationId);
+    public ReservationResponseDto getReservationById(@PathVariable int reservationId){
+        return reservationService.getReservation(reservationId);
     }
 
     @GetMapping("/patient/{patientById}")
@@ -41,7 +43,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/deleteReservation/{reservationById}")
-    public void deleteAppointment(@PathVariable Integer reservationId) {
-        reservationService.deleteReservation(reservationId);
+    public ReservationResponseDto deleteAppointment(@PathVariable Integer reservationId) {
+        return reservationService.delete(reservationId);
     }
 }
