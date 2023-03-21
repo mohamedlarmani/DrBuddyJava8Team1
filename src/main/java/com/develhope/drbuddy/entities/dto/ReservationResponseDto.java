@@ -1,5 +1,7 @@
 package com.develhope.drbuddy.entities.dto;
 
+import com.develhope.drbuddy.entities.Doctor;
+import com.develhope.drbuddy.entities.Patient;
 import com.develhope.drbuddy.entities.Reservation;
 
 import java.time.LocalDateTime;
@@ -7,14 +9,15 @@ import java.time.LocalDateTime;
 public class ReservationResponseDto {
 
     private LocalDateTime dateReservation;
+    private Patient patient;
+    private Doctor doctor;
 
-    public ReservationResponseDto(LocalDateTime dateReservation) {
+    public ReservationResponseDto(){}
+
+    public ReservationResponseDto(LocalDateTime dateReservation, Doctor doctor, Patient patient) {
         this.dateReservation = dateReservation;
-    }
-
-    public static ReservationResponseDto fromReservation(Reservation reservation) {
-        return new ReservationResponseDto(
-                reservation.getDateReservation());
+        this.doctor = doctor;
+        this.patient = patient;
     }
 
     public LocalDateTime getDateReservation() {
@@ -23,5 +26,21 @@ public class ReservationResponseDto {
 
     public void setDateReservation(LocalDateTime dateReservation) {
         this.dateReservation = dateReservation;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 }
