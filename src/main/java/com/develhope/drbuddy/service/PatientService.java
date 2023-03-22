@@ -56,7 +56,9 @@ public class PatientService {
         Patient patient = new Patient();
         patient.setEmail(request.getEmail());
         patient.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
-        patient.setFirstname(request.getFirstName());
+        patient.setFirstname(request.getFirstname());
+        patient.setLastname(request.getLastname());
+        patient.setTelephoneNumber(request.getTelephoneNumber());
         patient.setActivationCode(StringUtility.generateRandomString(6));
         patient.setActive(false);
         return patient;

@@ -1,20 +1,8 @@
 package com.develhope.drbuddy.entities.dto;
 
-public class RegistrationRequestDto {
-
-	private String firstName;
+public class RegistrationRequestDto extends PersonRequestDto{
 
 	private String password;
-
-	private String email;
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String username) {
-		this.firstName = username;
-	}
 
 	public String getPassword() {
 		return password;
@@ -24,13 +12,7 @@ public class RegistrationRequestDto {
 		this.password = password;
 	}
 
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	
 	

@@ -40,14 +40,9 @@ public abstract class Person extends Auditable {
     @Column(name = "record_status", nullable = false, length = 1)
     private RecordStatus recordStatus;
 
-    public Person(Integer id, String firstname, String lastname, String telephoneNumber, String email, RecordStatus recordStatus) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.telephoneNumber = telephoneNumber;
-        this.email = email;
-        this.recordStatus = recordStatus;
-    }
+    private String password;
+    private String activationCode;
+    private boolean active;
 
     public Person(){};
 
@@ -97,5 +92,29 @@ public abstract class Person extends Auditable {
 
     public void setRecordStatus(RecordStatus recordStatus) {
         this.recordStatus = recordStatus;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
