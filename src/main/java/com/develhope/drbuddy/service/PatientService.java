@@ -2,6 +2,7 @@ package com.develhope.drbuddy.service;
 
 
 import com.develhope.drbuddy.entities.Patient;
+import com.develhope.drbuddy.entities.Reservation;
 import com.develhope.drbuddy.entities.dto.*;
 import com.develhope.drbuddy.enums.RecordStatus;
 import com.develhope.drbuddy.exception.InvalidActivationCodeException;
@@ -27,6 +28,20 @@ public class PatientService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    public PatientResponseDto postPatient(PatientRequestDto request) {
+        return patientEntityToResponse(patientRepository.save(patientRequestToEntity(request)));
+    }
+
+    public PatientResponseDto getPatient(int id) {
+        Patient patient = patientRepository.findById(id).orElseThrow(RuntimeException::new);
+        return patientEntityToResponse(patient);
+    }
+
+    public PatientResponseDto putPatient(int id, PatientRequestDto request) {
+        Patient patient = patientRepository.findById(id).orElseThrow(RuntimeException::new);
+        patientRequestToEntity(request, patient);
+        return patientEntityToResponse(patientRepository.save(patient));
+    }
 
     public RegistrationResponseDto register(RegistrationRequestDto request) {
         Patient patient = patientRequestToEntityRegistration(request);
@@ -50,6 +65,27 @@ public class PatientService {
         } else {
             throw new InvalidActivationCodeException();
         }
+    }
+
+    private Patient patientRequestToEntity(PatientRequestDto request) {
+        Patient patient = new Patient();
+        return patientRequestToEntity(request, patient);
+    }
+
+    private Patient patientRequestToEntity(PatientRequestDto request, Patient patient){
+        patient.setFirstname(request.getFirstname());
+        patient.setLastname(request.getLastname());
+        patient.setTelephoneNumber(request.getTelephoneNumber());
+        patient.setEmail(request.getEmail());
+        return patient;
+    }
+    private PatientResponseDto patientEntityToResponse(Patient patient){
+        PatientResponseDto response = new PatientResponseDto();
+        response.setFirstname(patient.getFirstname());
+        response.setLastname(patient.getLastname());
+        response.setTelephoneNumber(patient.getTelephoneNumber());
+        response.setEmail(patient.getEmail());
+        return response;
     }
 
     private Patient patientRequestToEntityRegistration(RegistrationRequestDto request){
