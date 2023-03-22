@@ -51,8 +51,8 @@ public class ReservationService {
     }
 
     public List<ReservationResponseDto> getReservationPage(Integer page, Integer pageSize) {
-        Page<Reservation> immobili = reservationRepository.findAll(PageRequest.of(page, pageSize));
-        return reservationEntitiesToResponses(immobili.getContent());
+        Page<Reservation> reservation = reservationRepository.findAll(PageRequest.of(page, pageSize));
+        return reservationEntitiesToResponses(reservation.getContent());
     }
 
     private List<ReservationResponseDto> reservationEntitiesToResponses(List<Reservation> reservations) {

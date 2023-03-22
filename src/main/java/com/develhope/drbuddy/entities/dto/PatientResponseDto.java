@@ -9,20 +9,13 @@ public class PatientResponseDto {
     private String telephoneNumber;
     private String email;
 
-    public PatientResponseDto(String firstname, String lastname, String telephoneNumber, String email) {
+    public PatientResponseDto() {
         this.firstname = firstname;
         this.lastname = lastname;
         this.telephoneNumber = telephoneNumber;
         this.email = email;
     }
 
-    public static PatientResponseDto Patient(Patient patient) {
-        return new PatientResponseDto(
-                patient.getFirstname(),
-                patient.getLastname(),
-                patient.getTelephoneNumber(),
-                patient.getEmail());
-    }
 
     public String getFirstname() {
         return firstname;
