@@ -13,7 +13,6 @@ import it.pasqualecavallo.studentsmaterial.authorization_framework.utils.BCryptP
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
@@ -30,10 +29,10 @@ public class PatientService {
 
 
     public RegistrationResponseDto register(RegistrationRequestDto request) {
-        Patient patient = patientRequestToEntity(request);
+        Patient patient = patientRequestToEntityRegistration(request);
         patientRepository.save(patient);
         emailSender.sendRegistrationEmail(patient);
-        return patientEntityToResponse();
+        return patientEntityToResponseRegistration();
     }
 
 
@@ -53,7 +52,7 @@ public class PatientService {
         }
     }
 
-    private Patient patientRequestToEntity(RegistrationRequestDto request){
+    private Patient patientRequestToEntityRegistration(RegistrationRequestDto request){
         Patient patient = new Patient();
         patient.setEmail(request.getEmail());
         patient.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
@@ -67,7 +66,7 @@ public class PatientService {
         return patient;
     }
 
-    private RegistrationResponseDto patientEntityToResponse(){
+    private RegistrationResponseDto patientEntityToResponseRegistration(){
         RegistrationResponseDto response = new RegistrationResponseDto();
         response.setStatus(BaseResponse.Status.OK);
         return response;
