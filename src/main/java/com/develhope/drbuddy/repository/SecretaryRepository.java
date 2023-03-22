@@ -1,6 +1,5 @@
 package com.develhope.drbuddy.repository;
 
-import com.develhope.drbuddy.entities.Patient;
 import com.develhope.drbuddy.entities.Secretary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

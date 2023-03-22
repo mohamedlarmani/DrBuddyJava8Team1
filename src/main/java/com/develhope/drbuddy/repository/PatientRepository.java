@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface PatientRepository extends JpaRepository <Patient, Integer> {
-
     Optional<Patient> findByEmail(String email);
 }

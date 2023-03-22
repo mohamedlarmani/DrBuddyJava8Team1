@@ -2,6 +2,7 @@ package com.develhope.drbuddy.entities;
 
 import com.develhope.drbuddy.enums.RecordStatus;
 import com.develhope.drbuddy.utilities.Auditable;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -40,8 +41,13 @@ public abstract class Person extends Auditable {
     @Column(name = "record_status", nullable = false, length = 1)
     private RecordStatus recordStatus;
 
+    @Column(name = "password", nullable = false, length = 65)
     private String password;
+
+    @Column(name = "activation_code", nullable = false, length = 6)
     private String activationCode;
+
+    @Column(name = "active", nullable = false, length = 1)
     private boolean active;
 
     public Person(){};

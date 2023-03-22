@@ -3,6 +3,7 @@ package com.develhope.drbuddy.service;
 
 import com.develhope.drbuddy.entities.Patient;
 import com.develhope.drbuddy.entities.dto.*;
+import com.develhope.drbuddy.enums.RecordStatus;
 import com.develhope.drbuddy.exception.InvalidActivationCodeException;
 import com.develhope.drbuddy.exception.UserNotFoundException;
 import com.develhope.drbuddy.repository.PatientRepository;
@@ -22,7 +23,7 @@ public class PatientService {
     private PatientRepository patientRepository;
 
     @Autowired
-    EmailSender emailSender;
+    private EmailSender emailSender;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -41,7 +42,7 @@ public class PatientService {
         Patient patient = oPatient.orElseThrow(UserNotFoundException::new);
         if(request.getActivationCode().equals(patient.getActivationCode())) {
             patient.setActive(true);
-            patient.setActivationCode(null);
+            patient.setActivationCode("null");
             patientRepository.save(patient);
             ActivateResponseDto response = new ActivateResponseDto();
             response.setStatus(BaseResponse.Status.OK);
@@ -56,9 +57,11 @@ public class PatientService {
         Patient patient = new Patient();
         patient.setEmail(request.getEmail());
         patient.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
+        System.out.println(bCryptPasswordEncoder.encode(request.getPassword()));
         patient.setFirstname(request.getFirstname());
         patient.setLastname(request.getLastname());
         patient.setTelephoneNumber(request.getTelephoneNumber());
+        patient.setRecordStatus(RecordStatus.A);
         patient.setActivationCode(StringUtility.generateRandomString(6));
         patient.setActive(false);
         return patient;
