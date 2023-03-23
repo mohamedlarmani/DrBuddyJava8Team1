@@ -13,6 +13,9 @@ public class DoctorResponseDto extends PersonResponseDto{
         this.address = address;
     }
 
+    public DoctorResponseDto() {
+
+    }
 
 
     public String getCity() {
