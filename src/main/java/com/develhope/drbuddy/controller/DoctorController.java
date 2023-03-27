@@ -1,6 +1,7 @@
 package com.develhope.drbuddy.controller;
 
 import com.develhope.drbuddy.entities.Doctor;
+import com.develhope.drbuddy.entities.dto.DoctorResponseDto;
 import com.develhope.drbuddy.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,14 +14,9 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-    @PostMapping("/postDoctor")
-    public Doctor createDoctor(@RequestBody Doctor doctor) {
-        return doctorService.saveDoctor(doctor);
-    }
-
     @GetMapping("/getDoctor/{doctorById}")
-    public Optional<Doctor> getDoctorById(@PathVariable int doctorId){
-        return doctorService.getDoctorById(doctorId);
+    public DoctorResponseDto getDoctorById(@PathVariable int doctorId){
+        return doctorService.getDoctor(doctorId);
     }
 
 }

@@ -2,6 +2,7 @@ package com.develhope.drbuddy.controller;
 
 
 import com.develhope.drbuddy.entities.Secretary;
+import com.develhope.drbuddy.entities.dto.SecretaryResponseDto;
 import com.develhope.drbuddy.repository.SecretaryRepository;
 import com.develhope.drbuddy.service.SecretaryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,9 @@ public class SecretaryController {
     @Autowired
     private SecretaryService secretaryService;
 
-    @PostMapping("/postSecretary")
-    public Secretary SecretaryRepository(@RequestBody Secretary secretary) {
-        return secretaryService.saveSecretary(secretary);
-    }
-
-
     @GetMapping("/getSecretary/{secretaryById}")
-    public Optional<Secretary> getSecretaryById(@PathVariable int secretaryId) {
-        return secretaryService.getSecretaryById(secretaryId);
+    public SecretaryResponseDto getSecretaryById(@PathVariable int secretaryId) {
+        return secretaryService.getSecretary(secretaryId);
     }
 
 }

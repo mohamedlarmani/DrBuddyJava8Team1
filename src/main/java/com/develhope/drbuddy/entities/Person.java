@@ -2,7 +2,6 @@ package com.develhope.drbuddy.entities;
 
 import com.develhope.drbuddy.enums.RecordStatus;
 import com.develhope.drbuddy.utilities.Auditable;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,14 +39,14 @@ public abstract class Person extends Auditable {
     @Column(name = "record_status", nullable = false, length = 1)
     private RecordStatus recordStatus;
 
-    public Person(Integer id, String firstname, String lastname, String telephoneNumber, String email, RecordStatus recordStatus) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.telephoneNumber = telephoneNumber;
-        this.email = email;
-        this.recordStatus = recordStatus;
-    }
+    @Column(name = "password", nullable = false, length = 65)
+    private String password;
+
+    @Column(name = "activation_code", nullable = false, length = 6)
+    private String activationCode;
+
+    @Column(name = "active", nullable = false, length = 1)
+    private boolean active;
 
     public Person(){};
 
@@ -97,5 +96,29 @@ public abstract class Person extends Auditable {
 
     public void setRecordStatus(RecordStatus recordStatus) {
         this.recordStatus = recordStatus;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
