@@ -2,8 +2,6 @@ package com.develhope.drbuddy.entities;
 
 import com.develhope.drbuddy.enums.RecordStatus;
 import com.develhope.drbuddy.utilities.Auditable;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

@@ -7,11 +7,13 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class EmailSender {
+
     @Autowired
     private JavaMailSender javaMailSender;
-
 
     @Value("${spring.mail.username}")
     private String mailFrom;
@@ -25,4 +27,5 @@ public class EmailSender {
         simpleMailMessage.setTo(patient.getEmail());
         javaMailSender.send(simpleMailMessage);
     }
+
 }

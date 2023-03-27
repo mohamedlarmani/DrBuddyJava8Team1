@@ -27,7 +27,6 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private SecretaryRepository secretaryRepository;
 
-
     @Override
     public UserDetails getUserByUsername(String email) {
         Optional<Patient> oPatient;

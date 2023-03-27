@@ -41,13 +41,6 @@ public class SecretaryService {
             return secretaryEntityToResponse(secretaryRepository.save(secretary));
         }
 
-        public RegistrationResponseDto register(RegistrationRequestDto request) {
-            Secretary secretary = secretaryRequestToEntityRegistration(request);
-            secretaryRepository.save(secretary);
-            emailSender.sendRegistrationEmail(secretary);
-            return secretaryEntityToResponseRegistration();
-        }
-
 
         public ActivateResponseDto activate(ActivateRequestDto request) {
             Optional<Secretary> oSecretary = secretaryRepository.findByEmail(request.getEmail());
