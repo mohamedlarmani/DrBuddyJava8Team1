@@ -35,10 +35,11 @@ public class DoctorService {
         return doctorEntityToResponse(doctorRepository.save(doctor));
 
     }
+
     public DoctorResponseDto delete(int id) {
         Doctor doctor = doctorRepository.findById(id).orElseThrow(RuntimeException::new);
-        doctorRepository.delete(doctor);
-        return doctorEntityToResponse(doctor);
+        doctor.setRecordStatus(RecordStatus.D);
+        return doctorEntityToResponse(doctorRepository.save(doctor));
     }
 
     public List<DoctorResponseDto> getDoctorPage(Integer page, Integer pageSize) {

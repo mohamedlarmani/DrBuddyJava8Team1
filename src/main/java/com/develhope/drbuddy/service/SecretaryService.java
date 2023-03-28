@@ -46,8 +46,8 @@ public class SecretaryService {
             Optional<Secretary> oSecretary = secretaryRepository.findByEmail(request.getEmail());
             Secretary secretary = oSecretary.orElseThrow(UserNotFoundException::new);
             if(request.getActivationCode().equals(secretary.getActivationCode())) {
-                secretary.setActive(true);
                 secretary.setActivationCode("null");
+                secretary.setRecordStatus(RecordStatus.A);
                 secretaryRepository.save(secretary);
                 ActivateResponseDto response = new ActivateResponseDto();
                 response.setStatus(BaseResponse.Status.OK);
@@ -87,9 +87,8 @@ public class SecretaryService {
             secretary.setFirstname(request.getFirstname());
             secretary.setLastname(request.getLastname());
             secretary.setTelephoneNumber(request.getTelephoneNumber());
-            secretary.setRecordStatus(RecordStatus.A);
+            secretary.setRecordStatus(RecordStatus.I);
             secretary.setActivationCode(StringUtility.generateRandomString(6));
-            secretary.setActive(false);
             return secretary;
         }
 

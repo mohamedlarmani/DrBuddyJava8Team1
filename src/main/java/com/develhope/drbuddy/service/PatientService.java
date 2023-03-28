@@ -1,8 +1,6 @@
 package com.develhope.drbuddy.service;
 
-
 import com.develhope.drbuddy.entities.Patient;
-import com.develhope.drbuddy.entities.Reservation;
 import com.develhope.drbuddy.entities.dto.*;
 import com.develhope.drbuddy.enums.RecordStatus;
 import com.develhope.drbuddy.exception.InvalidActivationCodeException;
@@ -13,7 +11,6 @@ import com.develhope.drbuddy.utilities.StringUtility;
 import it.pasqualecavallo.studentsmaterial.authorization_framework.utils.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
@@ -43,6 +40,12 @@ public class PatientService {
         return patientEntityToResponse(patientRepository.save(patient));
     }
 
+    public PatientResponseDto delete(int id) {
+        Patient patient = patientRepository.findById(id).orElseThrow(RuntimeException::new);
+        patient.setRecordStatus(RecordStatus.D);
+        return patientEntityToResponse(patientRepository.save(patient));
+    }
+
     public RegistrationResponseDto register(RegistrationRequestDto request) {
         Patient patient = patientRequestToEntityRegistration(request);
         patientRepository.save(patient);
@@ -50,12 +53,11 @@ public class PatientService {
         return patientEntityToResponseRegistration();
     }
 
-
     public ActivateResponseDto activate(ActivateRequestDto request) {
         Optional<Patient> oPatient = patientRepository.findByEmail(request.getEmail());
         Patient patient = oPatient.orElseThrow(UserNotFoundException::new);
         if(request.getActivationCode().equals(patient.getActivationCode())) {
-            patient.setActive(true);
+            patient.setRecordStatus(RecordStatus.A);
             patient.setActivationCode("null");
             patientRepository.save(patient);
             ActivateResponseDto response = new ActivateResponseDto();
@@ -79,6 +81,7 @@ public class PatientService {
         patient.setEmail(request.getEmail());
         return patient;
     }
+
     private PatientResponseDto patientEntityToResponse(Patient patient){
         PatientResponseDto response = new PatientResponseDto();
         response.setFirstname(patient.getFirstname());
@@ -96,9 +99,8 @@ public class PatientService {
         patient.setFirstname(request.getFirstname());
         patient.setLastname(request.getLastname());
         patient.setTelephoneNumber(request.getTelephoneNumber());
-        patient.setRecordStatus(RecordStatus.A);
+        patient.setRecordStatus(RecordStatus.I);
         patient.setActivationCode(StringUtility.generateRandomString(6));
-        patient.setActive(false);
         return patient;
     }
 
@@ -107,5 +109,6 @@ public class PatientService {
         response.setStatus(BaseResponse.Status.OK);
         return response;
     }
+
 }
 
