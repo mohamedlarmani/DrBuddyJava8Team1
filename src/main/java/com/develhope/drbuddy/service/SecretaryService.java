@@ -1,13 +1,12 @@
 package com.develhope.drbuddy.service;
 
 import com.develhope.drbuddy.entities.Secretary;
-import com.develhope.drbuddy.entities.Reservation;
 import com.develhope.drbuddy.entities.dto.*;
 import com.develhope.drbuddy.enums.RecordStatus;
 import com.develhope.drbuddy.exception.InvalidActivationCodeException;
 import com.develhope.drbuddy.exception.UserNotFoundException;
 import com.develhope.drbuddy.repository.SecretaryRepository;
-import com.develhope.drbuddy.utilities.EmailSender;
+import com.develhope.drbuddy.notifications.EmailSender;
 import com.develhope.drbuddy.utilities.StringUtility;
 import it.pasqualecavallo.studentsmaterial.authorization_framework.utils.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;

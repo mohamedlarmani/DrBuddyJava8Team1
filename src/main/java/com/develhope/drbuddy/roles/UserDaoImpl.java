@@ -1,4 +1,4 @@
-package com.develhope.drbuddy;
+package com.develhope.drbuddy.roles;
 
 import com.develhope.drbuddy.entities.Doctor;
 import com.develhope.drbuddy.entities.Patient;

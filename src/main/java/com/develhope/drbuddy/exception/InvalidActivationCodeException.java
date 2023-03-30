@@ -2,6 +2,10 @@ package com.develhope.drbuddy.exception;
 
 public class InvalidActivationCodeException extends RuntimeException {
 
+	/**
+	 *SerialVersionUID is a unique identifier for each class
+	 */
+
 	private static final long serialVersionUID = -6855870110957747045L;
 
 	public InvalidActivationCodeException() {

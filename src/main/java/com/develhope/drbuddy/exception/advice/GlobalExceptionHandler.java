@@ -12,6 +12,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+	/**
+	 * This method is an exception handler for InvalidActivationCodeException.
+	 * It returns a BaseResponse object with an error message and sets the HTTP status to BAD_REQUEST.
+	 * @param e The InvalidActivationCodeException object to handle.
+	 * @return The BaseResponse object with the error message
+	 */
+
 	@ExceptionHandler(InvalidActivationCodeException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public BaseResponse handleInvalidActivationCodeException(InvalidActivationCodeException e) {
@@ -24,8 +31,14 @@ public class GlobalExceptionHandler {
 		}
 		return br;
 	}
-	
 
+	/**
+	 * Exception handler for UserNotFoundException. Returns a BaseResponse with a KO status and an error message.
+	 * If the exception message is not null, it will be used as the error message.
+	 * Instead, the default message "USER_NOT_FOUND" will be used.
+	 * @param e UserNotFoundException object thrown when a user is not found in the system
+	 * @return a BaseResponse object with KO status and an error message
+	 */
 	@ExceptionHandler(UserNotFoundException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public BaseResponse handleUserNotFoundException(UserNotFoundException e) {
