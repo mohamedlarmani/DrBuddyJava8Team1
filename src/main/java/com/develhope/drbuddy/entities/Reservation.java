@@ -19,13 +19,11 @@ public class Reservation {
     @Column(name = "date_reservation", nullable = false)
     private LocalDateTime dateReservation;
 
-
     @ManyToOne
     private Patient patient;
 
     @ManyToOne
     private Doctor doctor;
-
 
     public Reservation(){}
 

@@ -9,6 +9,10 @@ import javax.validation.constraints.Size;
 @MappedSuperclass
 public abstract class Person extends Auditable {
 
+    /**
+     * We created an interface with common data with the goal to avoid replicating code and make it cleaner
+     */
+
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (nullable = false)

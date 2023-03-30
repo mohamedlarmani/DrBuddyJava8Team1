@@ -6,6 +6,11 @@ public enum RecordStatus {
     I("This record is inactive"),
     D ("This record is deleted");
 
+    /**
+     * "A" when the user is active,
+     * "I" when the user is idle,
+     * "D" when the user was deleted via logical deletion
+     */
     private String descrizione;
 
     RecordStatus(String descrizione) {

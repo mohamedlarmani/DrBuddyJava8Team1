@@ -5,8 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "patient")
 public class Patient extends Person {
-    public Patient() {
-    }
+    public Patient() {}
 
 }
 
