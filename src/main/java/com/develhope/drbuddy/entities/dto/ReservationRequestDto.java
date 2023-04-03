@@ -4,9 +4,9 @@ import com.develhope.drbuddy.entities.Doctor;
 import com.develhope.drbuddy.entities.Patient;
 
 import javax.persistence.Column;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 public class ReservationRequestDto {
 

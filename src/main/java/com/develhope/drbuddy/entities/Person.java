@@ -9,6 +9,10 @@ import javax.validation.constraints.Size;
 @MappedSuperclass
 public abstract class Person extends Auditable {
 
+    /**
+     * We created an interface with common data with the goal to avoid replicating code and make it cleaner
+     */
+
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (nullable = false)
@@ -44,9 +48,6 @@ public abstract class Person extends Auditable {
 
     @Column(name = "activation_code", nullable = false, length = 6)
     private String activationCode;
-
-    @Column(name = "active", nullable = false, length = 1)
-    private boolean active;
 
     public Person(){};
 
@@ -114,11 +115,4 @@ public abstract class Person extends Auditable {
         this.activationCode = activationCode;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 }

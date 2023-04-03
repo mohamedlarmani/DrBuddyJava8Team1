@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 public class ReservationResponseDto {
 
     private LocalDateTime dateReservation;
-    private Patient patient;
-    private Doctor doctor;
+    private PatientResponseDto patient;
+    private DoctorResponseDto doctor;
 
     public ReservationResponseDto(){}
 
-    public ReservationResponseDto(LocalDateTime dateReservation, Doctor doctor, Patient patient) {
+    public ReservationResponseDto(LocalDateTime dateReservation, DoctorResponseDto doctor, PatientResponseDto patient) {
         this.dateReservation = dateReservation;
         this.doctor = doctor;
         this.patient = patient;
@@ -28,19 +28,19 @@ public class ReservationResponseDto {
         this.dateReservation = dateReservation;
     }
 
-    public Patient getPatient() {
+    public PatientResponseDto getPatient() {
         return patient;
     }
 
-    public void setPatient(Patient patient) {
+    public void setPatient(PatientResponseDto patient) {
         this.patient = patient;
     }
 
-    public Doctor getDoctor() {
+    public DoctorResponseDto getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(Doctor doctor) {
+    public void setDoctor(DoctorResponseDto doctor) {
         this.doctor = doctor;
     }
 }

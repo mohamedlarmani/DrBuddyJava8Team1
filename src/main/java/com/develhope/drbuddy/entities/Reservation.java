@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Entity
 @Table(name = "reservation")
@@ -19,13 +20,13 @@ public class Reservation {
     @Column(name = "date_reservation", nullable = false)
     private LocalDateTime dateReservation;
 
-
     @ManyToOne
     private Patient patient;
 
     @ManyToOne
     private Doctor doctor;
 
+    private int reservationDuration;
 
     public Reservation(){}
 
@@ -68,4 +69,11 @@ public class Reservation {
         this.doctor = doctor;
     }
 
+    public int getReservationDuration() {
+        return reservationDuration;
+    }
+
+    public void setReservationDuration(int reservationDuration) {
+        this.reservationDuration = reservationDuration;
+    }
 }

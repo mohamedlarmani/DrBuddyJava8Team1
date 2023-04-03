@@ -1,6 +1,5 @@
 package com.develhope.drbuddy;
 
-import com.develhope.drbuddy.entities.Doctor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
