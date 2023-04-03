@@ -20,6 +20,12 @@ public class DoctorService {
     @Autowired
     private DoctorRepository doctorRepository;
 
+    /**
+
+     This method creates a new doctor and saves it to the doctor repository.
+     @param request The doctor request DTO containing doctor information
+     @return The doctor information saved in the repository.
+     */
     public DoctorResponseDto postDoctor(DoctorRequestDto request) {
         return doctorEntityToResponse(doctorRepository.save(doctorRequestToEntity(request)));
     }

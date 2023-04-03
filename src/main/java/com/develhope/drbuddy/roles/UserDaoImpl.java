@@ -27,6 +27,12 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private SecretaryRepository secretaryRepository;
 
+    /**
+     Retrieves the UserDetails object associated with the specified email address.
+     The UserDetails object contains the username, password, and role(s) of the user.
+     @param email the email address of the user
+     @return the UserDetails object of the user, or null if no user was found with the specified email
+     */
     @Override
     public UserDetails getUserByUsername(String email) {
         Optional<Patient> oPatient;
