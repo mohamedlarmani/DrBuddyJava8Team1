@@ -10,7 +10,7 @@ This is a Java Spring Boot application for managing medical studio appointments.
 - [@Larmani Mohamed](https://github.com/mohamedlarmani)
 - [@Maria Rosa Gennarelli](https://github.com/maria-rosa-gennarelli)
 - [@Salvatore Mancuso](https://github.com/salvatoremancuso2003)
-
+- [@Paolo Tesei](https://github.com/ncorbu1)
 
 
 ## Tech Stack
