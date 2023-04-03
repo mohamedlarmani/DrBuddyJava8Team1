@@ -3,15 +3,22 @@ package com.develhope.drbuddy.service;
 import com.develhope.drbuddy.entities.Doctor;
 import com.develhope.drbuddy.entities.Patient;
 import com.develhope.drbuddy.entities.Reservation;
+import com.develhope.drbuddy.entities.dto.BaseResponse;
 import com.develhope.drbuddy.entities.dto.ReservationRequestDto;
 import com.develhope.drbuddy.entities.dto.ReservationResponseDto;
+import com.develhope.drbuddy.enums.RecordStatus;
+import com.develhope.drbuddy.exception.UserNotFoundException;
+import com.develhope.drbuddy.repository.PatientRepository;
 import com.develhope.drbuddy.repository.ReservationRepository;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -25,8 +32,20 @@ public class ReservationService {
      @param doctor_id The id of the doctor for whom to retrieve reservations.
      @return A list of reservations for the specified doctor.
      */
-    public List<Reservation> getReservationsByDoctor(Doctor doctor_id) {
-        return reservationRepository.findBydoctor(doctor_id);
+    @Autowired
+    private PatientRepository patientRepository;
+
+    @Autowired
+    private DoctorService doctorService;
+
+    @Autowired
+    private PatientService patientService;
+
+
+
+    public List<ReservationResponseDto> getReservationsByDoctor(Doctor doctor_id) {
+        return reservationEntitiesToResponses(reservationRepository.findBydoctor(doctor_id));
+
     }
 
     /**
@@ -34,8 +53,10 @@ public class ReservationService {
      @param patient_id The id of the patient for whom to retrieve reservations.
      @return A list of reservations for the specified patient.
      */
-    public List<Reservation> getReservationsByPatient(Patient patient_id) {
-        return reservationRepository.findBypatient(patient_id);
+    public List<ReservationResponseDto> getReservationsByPatient(int patient_id) {
+        Patient newPatient = new Patient();
+        newPatient.setId(patient_id);
+        return reservationEntitiesToResponses(reservationRepository.findBypatient(newPatient));
     }
 
 
@@ -45,7 +66,22 @@ public class ReservationService {
      @return A response object containing the details of the newly created reservation.
      */
     public ReservationResponseDto postReservation(ReservationRequestDto request) {
-        return reservationEntityToResponse(reservationRepository.save(reservationRequestToEntity(request)));
+        List<Reservation> reservationList = reservationRepository.findBydateReservation(request.getDateReservation());
+        int totalDuration = Integer.parseInt("1800");
+        Reservation reservation = new Reservation();
+        reservation = reservationRequestToEntity(request);
+        if (reservation.getDateReservation().getMinute() == 30 || reservation.getDateReservation().getMinute() == 00){
+            for (Reservation existingReservation : reservationList){
+                totalDuration += existingReservation.getDateReservation().getSecond();
+            }
+            if(totalDuration + reservation.getReservationDuration() > 1800){
+                throw new UserNotFoundException();
+            }else{
+                return reservationEntityToResponse(reservationRepository.save(reservationRequestToEntity(request)));
+            }
+        }else{
+            throw new UserNotFoundException();
+        }
     }
 
     /**
@@ -127,8 +163,8 @@ public class ReservationService {
     private ReservationResponseDto reservationEntityToResponse(Reservation reservation){
         ReservationResponseDto response = new ReservationResponseDto();
         response.setDateReservation(reservation.getDateReservation());
-        response.setDoctor(reservation.getDoctor());
-        response.setPatient(reservation.getPatient());
+        response.setDoctor(doctorService.doctorEntityToResponse(reservation.getDoctor()));
+        response.setPatient(patientService.patientEntityToResponse(reservation.getPatient()));
         return response;
     }
 }

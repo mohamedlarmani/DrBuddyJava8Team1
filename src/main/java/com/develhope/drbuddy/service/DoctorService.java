@@ -123,7 +123,7 @@ public class DoctorService {
      * @return The doctor response DTO populated with the doctor information from the entity.
      */
 
-    private DoctorResponseDto doctorEntityToResponse(Doctor doctor){
+    public DoctorResponseDto doctorEntityToResponse(Doctor doctor){
         DoctorResponseDto response = new DoctorResponseDto();
         response.setAddress(doctor.getAddress());
         response.setCity(doctor.getCity());

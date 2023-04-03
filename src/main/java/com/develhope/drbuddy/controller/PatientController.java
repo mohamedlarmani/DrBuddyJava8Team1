@@ -30,9 +30,9 @@ public class PatientController {
         return patientService.activate(request);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @PublicEndpoint
-    public PatientResponseDto delete (@RequestBody int id){
+    public PatientResponseDto delete (@PathVariable int id){
         return patientService.delete(id);
     }
 

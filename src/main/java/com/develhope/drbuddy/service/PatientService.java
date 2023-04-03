@@ -137,7 +137,7 @@ public class PatientService {
      * @param patient The patient entity containing patient information.
      * @return The patient response DTO populated with the patient information from the entity.
      */
-    private PatientResponseDto patientEntityToResponse(Patient patient){
+    public PatientResponseDto patientEntityToResponse(Patient patient){
         PatientResponseDto response = new PatientResponseDto();
         response.setFirstname(patient.getFirstname());
         response.setLastname(patient.getLastname());
