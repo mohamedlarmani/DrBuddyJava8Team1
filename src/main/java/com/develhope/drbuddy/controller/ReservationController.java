@@ -33,7 +33,7 @@ public class ReservationController {
     @RoleSecurity("ROLE_USER")
     @GetMapping("/patient")
     public List<ReservationResponseDto> getReservationsByPatient() {
-        return reservationService.getReservationsByPatient(Math.toIntExact(AuthenticationContext.get().getUserId()));
+        return reservationService.getReservationsByPatient(AuthenticationContext.get().getUsername());
     }
 
     @GetMapping("/doctor/{doctorById}")

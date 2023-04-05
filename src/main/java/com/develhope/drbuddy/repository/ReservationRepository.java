@@ -15,5 +15,6 @@ public interface ReservationRepository extends JpaRepository <Reservation, Integ
     List<Reservation> findBydoctor (Doctor doctor_id);
     List<Reservation> findBypatient (Patient patient_id);
 
+
     List<Reservation> findBydateReservation(LocalDateTime dateReservation);
 }

@@ -54,9 +54,9 @@ public class ReservationService {
      @param patient_id The id of the patient for whom to retrieve reservations.
      @return A list of reservations for the specified patient.
      */
-    public List<ReservationResponseDto> getReservationsByPatient(int patient_id) {
+    public List<ReservationResponseDto> getReservationsByPatient(String patient_email) {
         Patient newPatient = new Patient();
-        newPatient.setId(patient_id);
+        newPatient.setId(patientRepository.findByEmail(patient_email).get().getId());
         return reservationEntitiesToResponses(reservationRepository.findBypatient(newPatient));
     }
 
