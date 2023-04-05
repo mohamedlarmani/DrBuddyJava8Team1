@@ -38,26 +38,27 @@ public class UserDaoImpl implements UserDao {
         Optional<Patient> oPatient;
         Optional<Doctor> oDoctor;
         Optional<Secretary> oSecretary;
+        UserDetails userDetails = new UserDetails();
         if ((oPatient = patientRepository.findByEmail(email)).isPresent()) {
-            UserDetails userDetails = new UserDetails();
             Patient patient = oPatient.get();
             userDetails.setUsername(patient.getEmail());
             userDetails.setPassword(patient.getPassword());
             userDetails.setRoles(Arrays.asList("ROLE_USER"));
+            userDetails.setUserId(Long.valueOf(patient.getId()));
             return userDetails;
         } else if((oDoctor = doctorRepository.findByEmail(email)).isPresent()){
-            UserDetails userDetails = new UserDetails();
             Doctor doctor = oDoctor.get();
             userDetails.setUsername(doctor.getEmail());
             userDetails.setPassword(doctor.getPassword());
             userDetails.setRoles(Arrays.asList("ROLE_DOCTOR"));
+            userDetails.setUserId(Long.valueOf(doctor.getId()));
             return userDetails;
         } else if((oSecretary = secretaryRepository.findByEmail(email)).isPresent()) {
-            UserDetails userDetails = new UserDetails();
             Secretary secretary = oSecretary.get();
             userDetails.setUsername(secretary.getEmail());
             userDetails.setPassword(secretary.getPassword());
             userDetails.setRoles(Arrays.asList("ROLE_SECRETARY"));
+            userDetails.setUserId(Long.valueOf(secretary.getId()));
             return userDetails;
         } else{
             return null;
