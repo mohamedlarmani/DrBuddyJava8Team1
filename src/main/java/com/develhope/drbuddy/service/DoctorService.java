@@ -53,13 +53,13 @@ public class DoctorService {
         return doctorEntityToResponse(doctorRepository.save(doctor));
 
     }
+
     /**
      * This method deletes a doctor by setting its record status to "D" (Deleted).
      * @param id The ID of the doctor to delete.
      * @return The doctor response DTO populated with the updated doctor information saved in the repository.
      * @throws RuntimeException if the doctor with the given ID does not exist in the repository.
      */
-
     public DoctorResponseDto delete(int id) {
         Doctor doctor = doctorRepository.findById(id).orElseThrow(RuntimeException::new);
         doctor.setRecordStatus(RecordStatus.D);
@@ -72,7 +72,6 @@ public class DoctorService {
      * @param pageSize The size of a page.
      * @return The doctor response DTO populated with updated doctor information saved in the repository.
      */
-
     public List<DoctorResponseDto> getDoctorPage(Integer page, Integer pageSize) {
         Page<Doctor> doctor = doctorRepository.findAll(PageRequest.of(page, pageSize));
         return doctorEntitiesToResponses(doctor.getContent());

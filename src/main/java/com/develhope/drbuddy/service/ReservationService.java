@@ -7,6 +7,7 @@ import com.develhope.drbuddy.entities.dto.BaseResponse;
 import com.develhope.drbuddy.entities.dto.ReservationRequestDto;
 import com.develhope.drbuddy.entities.dto.ReservationResponseDto;
 import com.develhope.drbuddy.enums.RecordStatus;
+import com.develhope.drbuddy.exception.ReservationTakenException;
 import com.develhope.drbuddy.exception.UserNotFoundException;
 import com.develhope.drbuddy.repository.PatientRepository;
 import com.develhope.drbuddy.repository.ReservationRepository;
@@ -53,9 +54,9 @@ public class ReservationService {
      @param patient_id The id of the patient for whom to retrieve reservations.
      @return A list of reservations for the specified patient.
      */
-    public List<ReservationResponseDto> getReservationsByPatient(int patient_id) {
+    public List<ReservationResponseDto> getReservationsByPatient(String patient_email) {
         Patient newPatient = new Patient();
-        newPatient.setId(patient_id);
+        newPatient.setId(patientRepository.findByEmail(patient_email).get().getId());
         return reservationEntitiesToResponses(reservationRepository.findBypatient(newPatient));
     }
 
@@ -75,12 +76,12 @@ public class ReservationService {
                 totalDuration += existingReservation.getDateReservation().getSecond();
             }
             if(totalDuration + reservation.getReservationDuration() > 1800){
-                throw new UserNotFoundException();
+                throw new ReservationTakenException();
             }else{
                 return reservationEntityToResponse(reservationRepository.save(reservationRequestToEntity(request)));
             }
         }else{
-            throw new UserNotFoundException();
+            throw new ReservationTakenException();
         }
     }
 

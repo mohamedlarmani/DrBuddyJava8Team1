@@ -5,7 +5,9 @@ import com.develhope.drbuddy.entities.Reservation;
 import com.develhope.drbuddy.entities.dto.ReservationRequestDto;
 import com.develhope.drbuddy.entities.dto.ReservationResponseDto;
 import com.develhope.drbuddy.service.ReservationService;
+import it.pasqualecavallo.studentsmaterial.authorization_framework.filter.AuthenticationContext;
 import it.pasqualecavallo.studentsmaterial.authorization_framework.security.PublicEndpoint;
+import it.pasqualecavallo.studentsmaterial.authorization_framework.security.RoleSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -28,10 +30,10 @@ public class ReservationController {
         return reservationService.getReservation(reservationId);
     }
 
-    @PublicEndpoint
-    @GetMapping("/patient/{patientId}")
-    public List<ReservationResponseDto> getReservationsByPatient(@PathVariable int patientId) {
-        return reservationService.getReservationsByPatient(patientId);
+    @RoleSecurity("ROLE_USER")
+    @GetMapping("/patient")
+    public List<ReservationResponseDto> getReservationsByPatient() {
+        return reservationService.getReservationsByPatient(AuthenticationContext.get().getUsername());
     }
 
     @GetMapping("/doctor/{doctorById}")
