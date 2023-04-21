@@ -1,5 +1,6 @@
 package com.develhope.drbuddy.service;
 
+
 import com.develhope.drbuddy.entities.Secretary;
 import com.develhope.drbuddy.entities.dto.*;
 import com.develhope.drbuddy.enums.RecordStatus;
@@ -45,7 +46,6 @@ public class SecretaryService {
         }
 
     /**
-
      This method updates an existing secretary in the secretary repository by their ID.
      @param id The ID of the patient to update.
      @param request The secretary request containing the updated secretary information.
@@ -58,9 +58,19 @@ public class SecretaryService {
             return secretaryEntityToResponse(secretaryRepository.save(secretary));
         }
 
+    /**
+     * This method deletes a secretary by setting its record status to "D" (Deleted).
+     * @param id The ID of the secretary to delete.
+     * @return The secretary response DTO populated with the updated doctor information saved in the repository.
+     * @throws RuntimeException if the doctor with the given ID does not exist in the repository.
+     */
+    public SecretaryResponseDto delete(int id) {
+        Secretary secretary = secretaryRepository.findById(id).orElseThrow(RuntimeException::new);
+        secretary.setRecordStatus(RecordStatus.D);
+        return secretaryEntityToResponse(secretaryRepository.save(secretary));
+    }
 
     /**
-
      This method activates a secretary's account by checking the activation code against the code stored
      in the secretary entity. If the codes match, the secretary's record status is set to "A".
      A response DTO is returned containing the secretary's first name and a status of "OK".
@@ -87,7 +97,6 @@ public class SecretaryService {
         }
 
     /**
-
      This method helps convert a secretary request DTO into a secretary entity.
      @param request The secretary request DTO containing secretary information.
      @return The secretary entity populated with the secretary information from the request DTO.
@@ -98,7 +107,6 @@ public class SecretaryService {
         }
 
     /**
-
      This method populates a secretary entity with information from a secretary request DTO.
      @param request The secretary request DTO containing secretary information.
      @param secretary The secretary entity to be populated.
@@ -111,8 +119,8 @@ public class SecretaryService {
             secretary.setEmail(request.getEmail());
             return secretary;
         }
-    /**
 
+    /**
      This method converts a secretary entity to a secretary response DTO.
      @param secretary The secretary entity containing secretary information.
      @return The secretary response DTO populated with the secretary information from the entity.
@@ -127,7 +135,6 @@ public class SecretaryService {
         }
 
     /**
-
      This private helper method converts a registration request DTO to a secretary entity.
      @param request The registration request DTO containing secretary information.
      @return The secretary entity populated with the secretary information from the registration request DTO.
@@ -146,7 +153,6 @@ public class SecretaryService {
         }
 
     /**
-
      This private helper method converts a secretary entity to a registration response DTO.
      @return The registration response DTO indicating that the registration was successful.
      */
