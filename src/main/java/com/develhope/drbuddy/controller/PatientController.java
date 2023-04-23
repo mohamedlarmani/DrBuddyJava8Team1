@@ -8,7 +8,9 @@ import it.pasqualecavallo.studentsmaterial.authorization_framework.security.Publ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 
+@CrossOrigin(origins = "*", allowedHeaders = {"Content-Type", "Authorization"})
 @SecurityRequirement(name = "bearerAuth")
 @Tag(name = "User", description = "The User API. Contains all the operations that can be performed on a user.")
 @RestController
@@ -20,7 +22,7 @@ public class PatientController {
 
     @PostMapping("/register")
     @PublicEndpoint
-    public RegistrationResponseDto register (@RequestBody RegistrationRequestDto request) {
+    public RegistrationResponseDto register (@RequestBody RegistrationRequestDto request) {;
         return patientService.register(request);
     }
 
