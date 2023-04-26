@@ -9,6 +9,7 @@ import com.develhope.drbuddy.entities.dto.ReservationResponseDto;
 import com.develhope.drbuddy.enums.RecordStatus;
 import com.develhope.drbuddy.exception.ReservationTakenException;
 import com.develhope.drbuddy.exception.UserNotFoundException;
+import com.develhope.drbuddy.repository.DoctorRepository;
 import com.develhope.drbuddy.repository.PatientRepository;
 import com.develhope.drbuddy.repository.ReservationRepository;
 import org.apache.catalina.User;
@@ -41,17 +42,19 @@ public class ReservationService {
 
     @Autowired
     private PatientService patientService;
+    @Autowired
+    private DoctorRepository doctorRepository;
 
 
-
-    public List<ReservationResponseDto> getReservationsByDoctor(Doctor doctor_id) {
-        return reservationEntitiesToResponses(reservationRepository.findBydoctor(doctor_id));
+    public List<ReservationResponseDto> getReservationsByDoctor(String doctor_email) {
+        Doctor newDoctor = new Doctor();
+        newDoctor.setId(doctorRepository.findByEmail(doctor_email).get().getId());
+        return reservationEntitiesToResponses(reservationRepository.findBydoctor(newDoctor));
 
     }
 
     /**
      Retrieves a list of reservations for the specified patient.
-     @param patient_id The id of the patient for whom to retrieve reservations.
      @return A list of reservations for the specified patient.
      */
     public List<ReservationResponseDto> getReservationsByPatient(String patient_email) {

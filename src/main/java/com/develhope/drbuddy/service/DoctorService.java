@@ -124,8 +124,6 @@ public class DoctorService {
 
     public DoctorResponseDto doctorEntityToResponse(Doctor doctor){
         DoctorResponseDto response = new DoctorResponseDto();
-        response.setAddress(doctor.getAddress());
-        response.setCity(doctor.getCity());
         response.setEmail(doctor.getEmail());
         response.setFirstname(doctor.getFirstname());
         response.setLastname(doctor.getLastname());

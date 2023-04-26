@@ -20,7 +20,7 @@ public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 
-    @PublicEndpoint
+    @RoleSecurity("ROLE_USER")
     @PostMapping("/postReservation")
     public ReservationResponseDto createReservation(@RequestBody ReservationRequestDto request) {
         return reservationService.postReservation(request);
@@ -37,11 +37,10 @@ public class ReservationController {
         return reservationService.getReservationsByPatient(AuthenticationContext.get().getUsername());
     }
 
-    @GetMapping("/doctor/{doctorById}")
-    public List<ReservationResponseDto> getReservationsByDoctor(@PathVariable int doctorId) {
-        Doctor newDoctor = new Doctor();
-        newDoctor.setId(doctorId);
-        return reservationService.getReservationsByDoctor(newDoctor);
+    @RoleSecurity("ROLE_DOCTOR")
+    @GetMapping("/doctor")
+    public List<ReservationResponseDto> getReservationsByDoctor() {
+        return reservationService.getReservationsByDoctor(AuthenticationContext.get().getUsername());
     }
 
     @DeleteMapping("/deleteReservation/{reservationById}")
