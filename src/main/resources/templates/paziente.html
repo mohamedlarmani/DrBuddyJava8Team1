@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Calendario Appuntamenti - Paziente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            padding: 50px 0;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-gap: 10px;
+            margin: 20px;
+        }
+
+        .day {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .add-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+            width: 30px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .delete-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+            width: 30px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>Calendario Appuntamenti - Paziente</h1>
+
+<div class="calendar">
+    <div class="day">
+        <h3>Lunedì</h3>
+        <ul id="mondayAppointments"></ul>
+        <button class="add-button" onclick="addAppointment('Monday')">+</button>
+    </div>
+    <div class="day">
+        <h3>Martedì</h3>
+        <ul id="tuesdayAppointments"></ul>
+        <button class="add-button" onclick="addAppointment('Tuesday')">+</button>
+    </div>
+    <div class="day">
+        <h3>Mercoledì</h3>
+        <ul id="wednesdayAppointments"></ul>
+        <button class="add-button" onclick="addAppointment('Wednesday')">+</button>
+    </div>
+    <div class="day">
+        <h3>Giovedì</h3>
+        <ul id="thursdayAppointments"></ul>
+        <button class="add-button" onclick="addAppointment('Thursday')">+</button>
+    </div>
+    <div class="day">
+        <h3>Venerdì</h3>
+        <ul id="fridayAppointments"></ul>
+        <button class="add-button" onclick="addAppointment('Friday')">+</button>
+    </div>
+    <div class="day">
+        <h3>Sabato</h3>
+        <ul id="saturdayAppointments"></ul>
+        <button class="add-button" onclick="addAppointment('Saturday')">+</button>
+    </div>
+    <div class="day">
+        <h3>Domenica</h3>
+        <ul id="sundayAppointments"></ul>
+        <button class="add-button" onclick="addAppointment('Sunday')">+</button>
+    </div>
+</div>
+
+<script>
+    // Funzione per ottenere gli appuntamenti della settimana
+    function getWeeklyAppointments() {
+        axios.get('http://localhost:8080/Reservation/patient', {
+            headers: {
+                'Authorization': 'Bearer <inserisci_token>'
+            }
+        })
+            .then(function (response) {
+                var appointments = response.data;
+
+                // Aggiungi gli appuntamenti alla griglia
+                appointments.forEach(function (appointment) {
+                    var dayList = document.getElementById(appointment.day + 'Appointments');
+                    var listItem = document.createElement('li');
+                    listItem.innerHTML = appointment.time + ' - ' + appointment.description;
+                    listItem.appendChild(createDeleteButton(appointment.id));
+                    dayList.appendChild(listItem);
+                });
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    }
+
+    // Funzione per aggiungere un appuntamento
+    function addAppointment(day) {
+        var time = prompt('Inserisci l\'orario dell\'appuntamento (es. 09:30):');
+        var description = prompt('Inserisci la descrizione dell\'appuntamento:');
+
+        if (time && description) {
+            axios.post('http://localhost:8080/Reservation/add', {
+                day: day,
+                time: time,
+                description: description
+            }, {
+                headers: {
+                    'Authorization': 'Bearer <inserisci_token>'
+                }
+            })
+                .then(function (response) {
+                    if (response.status === 200) {
+                        // Ricarica gli appuntamenti dopo l'aggiunta
+                        clearCalendar();
+                        getWeeklyAppointments();
+                    } else {
+                        console.error('Errore durante l\'aggiunta dell\'appuntamento');
+                    }
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        }
+    }
+
+    // Funzione per eliminare un appuntamento
+    function deleteAppointment(appointmentId) {
+        axios.delete('http://localhost:8080/Reservation/delete/' + appointmentId, {
+            headers: {
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtb2hhbWVkLmxhcm1hbmlAZ21haWwuY29tIiwiYXVkIjoidGVzdGF1ZGllbmNlIiwiZXhwIjoxNjg2NzU2OTk2LCJqdGkiOiI1OTJiNmJlMS02NTA2LTQwNjUtOTJkOS0zOGU0MmJkY2MwOTMiLCJpYXQiOjE2ODY2NzA1OTYsIm5iZiI6MTY4NjY3MDU5Niwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJJZCI6MzR9.xYZp-i3Y-lLJqAKWvGv_jLRv7c71YlWVBeGyOWb6UcE'
+            }
+        })
+            .then(function (response) {
+                if (response.status === 200) {
+                    // Ricarica gli appuntamenti dopo l'eliminazione
+                    clearCalendar();
+                    getWeeklyAppointments();
+                } else {
+                    console.error('Errore durante l\'eliminazione dell\'appuntamento');
+                }
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    }
+
+    // Funzione per creare un pulsante di eliminazione
+    function createDeleteButton(appointmentId) {
+        var deleteButton = document.createElement('button');
+        deleteButton.className = 'delete-button';
+        deleteButton.innerHTML = 'x';
+        deleteButton.onclick = function () {
+            deleteAppointment(appointmentId);
+        };
+        return deleteButton;
+    }
+
+    // Funzione per svuotare la griglia dei calendari
+    function clearCalendar() {
+        document.getElementById('mondayAppointments').innerHTML = '';
+        document.getElementById('tuesdayAppointments').innerHTML = '';
+        document.getElementById('wednesdayAppointments').innerHTML = '';
+        document.getElementById('thursdayAppointments').innerHTML = '';
+        document.getElementById('fridayAppointments').innerHTML = '';
+        document.getElementById('saturdayAppointments').innerHTML = '';
+        document.getElementById('sundayAppointments').innerHTML = '';
+    }
+
+    // Avvia la pagina
+    getWeeklyAppointments();
+</script>
+</body>
+</html>

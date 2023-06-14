@@ -25,6 +25,7 @@ public class PatientService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
     /**
      * This method creates a new patient and saves it to the patient repository.
      * @param request The patient request DTO containing patient information
@@ -155,7 +156,6 @@ public class PatientService {
         Patient patient = new Patient();
         patient.setEmail(request.getEmail());
         patient.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
-        System.out.println(bCryptPasswordEncoder.encode(request.getPassword()));
         patient.setFirstname(request.getFirstname());
         patient.setLastname(request.getLastname());
         patient.setTelephoneNumber(request.getTelephoneNumber());

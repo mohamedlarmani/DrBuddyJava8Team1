@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registrazione Paziente</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="registrationSection">
+    <h1>Registrazione Paziente</h1>
+
+    <form id="registrationForm">
+        <label for="firstname">Nome:</label>
+        <input type="text" id="firstname" name="firstname" required><br><br>
+
+        <label for="lastname">Cognome:</label>
+        <input type="text" id="lastname" name="lastname" required><br><br>
+
+        <label for="telephoneNumber">Numero di telefono:</label>
+        <input type="text" id="telephoneNumber" name="telephoneNumber" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <input type="submit" value="Registrati">
+    </form>
+</div>
+
+<div id="activationSection" style="display: none;">
+    <h2>Ti sei registrato con successo!</h2>
+    <p>Ti abbiamo mandato un codice di attivazione via mail: <span id="activationCode"></span></p>
+
+    <form id="activationForm">
+        <label for="activationCodeInput">Inserisci il codice di attivazione:</label>
+        <input type="text" id="activationCodeInput" name="activationCodeInput" required><br><br>
+        <input type="submit" value="Attiva">
+    </form>
+</div>
+
+<div id="successMessage" style="display: none;">
+    <h2>Il tuo account è stato attivato con successo!</h2>
+    <p>Effettua il login per accedere.</p>
+    <button id="loginButton">Effettua il login</button>
+</div>
+
+<script>
+    document.getElementById('registrationForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Per impedire l'invio del modulo
+
+        // Raccolta dei dati dal modulo di registrazione
+        var formData = {
+            firstname: document.getElementById('firstname').value,
+            lastname: document.getElementById('lastname').value,
+            telephoneNumber: document.getElementById('telephoneNumber').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
+        };
+
+        // Invio della richiesta POST per la registrazione
+        axios.post('http://localhost:8080/Patient/register', formData)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // Nascondi la sezione di registrazione
+                    document.getElementById('registrationSection').style.display = 'none';
+
+                    // Mostra la sezione di attivazione
+                    document.getElementById('activationSection').style.display = 'block';
+                    document.getElementById('activationCode').textContent = response.data.activationCode;
+                } else {
+                    console.error('Errore durante la registrazione');
+                }
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    });
+
+    document.getElementById('activationForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Per impedire l'invio del modulo
+
+        // Raccolta dei dati dal modulo di attivazione
+        var activationData = {
+            email: document.getElementById('email').value,
+            activationCode: document.getElementById('activationCodeInput').value
+        };
+
+        // Invio della richiesta POST per l'attivazione
+        axios.post('http://localhost:8080/Patient/activate', activationData)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // Nascondi la sezione di attivazione
+                    document.getElementById('activationSection').style.display = 'none';
+
+                    // Mostra il messaggio di successo
+                    document.getElementById('successMessage').style.display = 'block';
+                } else {
+                    console.error('Errore durante l\'attivazione');
+                }
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+    });
+
+    document.getElementById('loginButton').addEventListener('click', function () {
+        window.location.href = '/login.html';
+    });
+</script>
+</body>
+</html>

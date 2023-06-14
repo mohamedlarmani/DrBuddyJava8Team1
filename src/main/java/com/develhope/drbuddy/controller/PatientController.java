@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import it.pasqualecavallo.studentsmaterial.authorization_framework.security.PublicEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
+
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,9 +22,12 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    @PostMapping("/register")
+
+
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PublicEndpoint
-    public RegistrationResponseDto register (@RequestBody RegistrationRequestDto request) {;
+    public RegistrationResponseDto register(@RequestBody RegistrationRequestDto request) {
         return patientService.register(request);
     }
 
@@ -31,6 +36,7 @@ public class PatientController {
     public ActivateResponseDto activate (@RequestBody ActivateRequestDto request) {
         return patientService.activate(request);
     }
+
 
     @DeleteMapping("/delete/{id}")
     @PublicEndpoint
